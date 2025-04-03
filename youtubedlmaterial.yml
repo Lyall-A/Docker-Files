@@ -1,0 +1,14 @@
+services:
+  youtubedl-material:
+    image: tzahi12345/youtubedl-material:latest
+    container_name: youtubedl-material
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 17442:17442
+    volumes:
+      - ./Volumes/youtubedl-material/config:/app/appdata
+      - ./Volumes/youtubedl-material/users:/app/users
+      - /mnt/drive1/Media/YouTube/Videos:/app/video
+      - /mnt/drive1/Media/YouTube/Audio:/app/audio
+      - /mnt/drive1/Media/YouTube/Channels:/app/subscriptions/channels

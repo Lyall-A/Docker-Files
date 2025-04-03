@@ -1,0 +1,16 @@
+services:
+  openvpn-server:
+    image: openvpn/openvpn-as
+    container_name: openvpn-server
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    network_mode: bridge
+    ports:
+      # - 80:80/tcp
+      - 443:443/tcp
+      - 1194:1194/udp
+      - 1195:1195
+      - 1196:1196
+    volumes:
+      - ./Volumes/openvpn-server/data:/openvpn
