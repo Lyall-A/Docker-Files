@@ -12,9 +12,9 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./Volumes/portainer/data:/data
 
-  portainer_agent:
+  portainer-agent:
     image: portainer/agent:2.19.4
-    container_name: portainer_agent
+    container_name: portainer-agent
     restart: unless-stopped
     network_mode: bridge
     ports:
