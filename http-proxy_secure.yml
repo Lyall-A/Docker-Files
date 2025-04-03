@@ -2,7 +2,7 @@ services:
   http-proxy-secure:
     build:
       context: .
-      dockerfile: Dockerfile.http-proxy
+      dockerfile: http-proxy.Dockerfile
     container_name: http-proxy-secure
     restart: unless-stopped
     network_mode: host
