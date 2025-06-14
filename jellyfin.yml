@@ -14,4 +14,5 @@ services:
     volumes:
       - ./Volumes/jellyfin/config:/config
       - ./Volumes/jellyfin/cache:/cache
+      - ./Volumes/jellyfin/jellyfin/jellyfin-web/config.json:/jellyfin/jellyfin-web/config.json
       - /mnt/drive1/Media:/media

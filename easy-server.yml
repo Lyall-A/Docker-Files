@@ -1,0 +1,12 @@
+services:
+  easy-server:
+    build:
+      context: .
+      dockerfile: easy-server.Dockerfile
+    container_name: easy-server
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./Volumes/easy-server/config.json:/data/config.json
+      - ./Volumes/easy-server/servers:/data/servers
+      - /mnt/drive1/Media:/media

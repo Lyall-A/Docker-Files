@@ -15,13 +15,14 @@ services:
       - 8090:8090 # qBittorrent
       - 6887:6887/udp # qBittorrent inbound torrent traffic
       - 6887:6887/tcp # qBittorrent inbound torrent traffic
-      - 8989:8989 # Sonarr
-      - 7878:7878 # Radarr
-      - 8686:8686 # Lidarr
       - 9117:9117 # Jackett
+      # - 8989:8989 # Sonarr
+      # - 7878:7878 # Radarr
+      # - 8686:8686 # Lidarr
     volumes:
       - ./Volumes/vpn/vpn:/vpn
     command: '-f ""'
+  # Jackett (Indexer)
   # Deluge
   # deluge:
   #   image: linuxserver/deluge
@@ -47,12 +48,22 @@ services:
       - ./Volumes/qbittorrent/config:/config
       - /mnt/drive1/Media/Torrents:/downloads
       - /mnt/drive1/Media:/media
+  # Jackett (Indexer)
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    restart: unless-stopped
+    network_mode: service:vpn
+    volumes:
+      - ./Volumes/jackett/config:/config
   # Sonarr (Shows)
   sonarr:
     image: ghcr.io/hotio/sonarr
     container_name: sonarr
     restart: unless-stopped
-    network_mode: service:vpn
+    network_mode: bridge
+    ports:
+      - 8989:8989
     volumes:
       - ./Volumes/sonarr/config:/config
       - /mnt/drive1/Media:/media
@@ -62,7 +73,9 @@ services:
     image: ghcr.io/hotio/radarr
     container_name: radarr
     restart: unless-stopped
-    network_mode: service:vpn
+    network_mode: bridge
+    ports:
+      - 7878:7878
     volumes:
       - ./Volumes/radarr/config:/config
       - /mnt/drive1/Media:/media
@@ -72,16 +85,10 @@ services:
     image: ghcr.io/hotio/lidarr
     container_name: lidarr
     restart: unless-stopped
-    network_mode: service:vpn
+    network_mode: bridge
+    ports:
+      - 8686:8686
     volumes:
       - ./Volumes/lidarr/config:/config
       - /mnt/drive1/Media:/media
       - /mnt/drive1/Media/Torrents:/downloads
-  # Jackett (Indexer)
-  jackett:
-    image: lscr.io/linuxserver/jackett:latest
-    container_name: jackett
-    restart: unless-stopped
-    network_mode: service:vpn
-    volumes:
-      - ./Volumes/jackett/config:/config
