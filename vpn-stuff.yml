@@ -47,7 +47,6 @@ services:
     volumes:
       - ./Volumes/qbittorrent/config:/config
       - /mnt/drive1/Media/Torrents:/downloads
-      - /mnt/drive1/Media:/media
   # Jackett (Indexer)
   jackett:
     image: lscr.io/linuxserver/jackett:latest

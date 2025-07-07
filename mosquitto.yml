@@ -1,0 +1,12 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 1883:1883
+    volumes:
+      - ./Volumes/mosquitto/config:/mosquitto/config
+      - ./Volumes/mosquitto/data:/mosquitto/data
+      - ./Volumes/mosquitto/log:/mosquitto/log

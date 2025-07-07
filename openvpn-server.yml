@@ -7,11 +7,11 @@ services:
       - NET_ADMIN
     network_mode: bridge
     ports:
-      - 8443:8443/tcp
-      #- 80:80/tcp
-      #- 443:443/tcp
-      - 1194:1194/udp
-      - 1195:1195
-      - 1196:1196
+      - 8443:8443/tcp # TCP
+      #- 80:80/tcp # TCP
+      #- 443:443/tcp # TCP
+      - 1194:1194/udp # UDP
+      - 1195:1195 # Admin panel
+      - 1196:1196 # User panel
     volumes:
       - ./Volumes/openvpn-server/data:/openvpn

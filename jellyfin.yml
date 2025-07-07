@@ -8,7 +8,7 @@ services:
     # ports:
     #   - 8096:8096
     group_add:
-      - "122"
+      - 105
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
     volumes:
