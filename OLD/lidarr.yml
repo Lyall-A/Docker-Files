@@ -1,0 +1,13 @@
+services:
+  lidarr:
+    #image: ghcr.io/hotio/lidarr
+    image: blampe/lidarr # Third party metadata server
+    container_name: lidarr
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8686:8686
+    volumes:
+      - ./Volumes/lidarr/config:/config
+      - /mnt/drive1/Media:/media
+      - /mnt/drive1/Media/Torrents:/downloads

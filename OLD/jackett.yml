@@ -1,0 +1,8 @@
+services:
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    restart: unless-stopped
+    network_mode: service:vpn
+    volumes:
+      - ./Volumes/jackett/config:/config

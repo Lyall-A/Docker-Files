@@ -1,0 +1,11 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:beta
+    container_name: uptime-kuma
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 3001:3001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../Volumes/uptime-kuma/data:/app/data

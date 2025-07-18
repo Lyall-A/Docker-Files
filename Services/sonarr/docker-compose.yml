@@ -1,0 +1,12 @@
+services:
+  sonarr:
+    image: ghcr.io/hotio/sonarr
+    container_name: sonarr
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8989:8989
+    volumes:
+      - ../../Volumes/sonarr/config:/config
+      - /mnt/drive1/Media:/media
+      - /mnt/drive1/Media/Torrents:/downloads

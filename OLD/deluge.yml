@@ -1,0 +1,10 @@
+services:
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    restart: unless-stopped
+    network_mode: service:vpn
+    volumes:
+      - ./Volumes/deluge/config:/config
+      - /mnt/drive1/Media:/media
+      - /mnt/drive1/Media/Torrents:/downloads

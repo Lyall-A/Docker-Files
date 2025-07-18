@@ -1,0 +1,10 @@
+services:
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: librespeed
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 9431:80
+    volumes:
+      - ../../Volumes/librespeed/config:/config

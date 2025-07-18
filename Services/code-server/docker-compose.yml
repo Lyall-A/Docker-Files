@@ -1,0 +1,10 @@
+services:
+  code-server:
+    image: linuxserver/code-server
+    container_name: code-server
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8443:8443
+    volumes:
+      - ../../Volumes/code-server/config:/config

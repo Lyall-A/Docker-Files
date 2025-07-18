@@ -1,0 +1,13 @@
+services:
+  certificate-renewer:
+    image: certbot/dns-cloudflare
+    container_name: certificate-renewer
+    restart: unless-stopped
+    entrypoint: /renew.sh
+    user: 1000:1000
+    volumes:
+      - ../../Volumes/certificate-renewer/work:/work
+      - ../../Volumes/certificate-renewer/logs:/logs
+      - ../../Volumes/certificate-renewer/config:/config
+      - ../../Volumes/certificate-renewer/renew.sh:/renew.sh
+      - ../../Volumes/certificate-renewer/cloudflare.ini:/cloudflare.ini

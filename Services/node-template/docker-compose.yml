@@ -1,0 +1,12 @@
+services:
+  node-template:
+    image: node:latest
+    container_name: node-template
+    restart: unless-stopped
+    network_mode: bridge
+    working_dir: /app
+    command: node .
+    ports:
+      - 80:80
+    volumes:
+      - ../../Volumes/node-template/app:/app
