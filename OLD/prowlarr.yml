@@ -1,8 +1,0 @@
-services:
-  prowlarr:
-    image: ghcr.io/hotio/prowlarr
-    container_name: prowlarr
-    restart: unless-stopped
-    network_mode: container:vpn
-    volumes:
-      - ./Volumes/prowlarr/config:/config
