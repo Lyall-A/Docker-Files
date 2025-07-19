@@ -4,4 +4,3 @@ just a bunch of docker services i run
 * fix permissions for some services
 * fix or nuke pterodactytl
 * make custom dockerfiles better
-* 
