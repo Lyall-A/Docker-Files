@@ -1,0 +1,18 @@
+services:
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    restart: unless-stopped
+    network_mode: container:vpn
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_DOWNLOADS_DIR=/downloads/Downloads
+      - SLSKD_INCOMPLETE_DIR=/downloads/Incomplete
+      - SLSKD_SHARED_DIR=/media/Music
+      - SLSKD_UPLOAD_SLOTS=10
+      - SLSKD_UPLOAD_SPEED_LIMIT=10000
+      - SLSKD_SLSK_LISTEN_PORT=53199
+    volumes:
+      - ../../Volumes/slskd/data:/app
+      - /mnt/drive1/Media/Soulseek:/downloads
+      - /mnt/drive1/Media/Music:/media/Music

@@ -1,7 +1,7 @@
 services:
   lidarr:
-    #image: ghcr.io/hotio/lidarr
-    image: blampe/lidarr # Third party metadata server
+    image: ghcr.io/hotio/lidarr
+    #image: blampe/lidarr # Third party metadata server
     container_name: lidarr
     restart: unless-stopped
     network_mode: bridge

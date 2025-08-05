@@ -1,0 +1,9 @@
+services:
+  adguard-home:
+    image: adguard/adguardhome
+    container_name: adguard-home
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ../../Volumes/adguard-home/work:/opt/adguardhome/work
+      - ../../Volumes/adguard-home/conf:/opt/adguardhome/conf
