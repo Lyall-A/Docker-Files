@@ -8,7 +8,7 @@ services:
     ports:
       - 25560-25570:25560-25570
     working_dir: /data
-    command: bash ./run.sh
+    command: bash ./start.sh
     stdin_open: true
     tty: true
     volumes:
