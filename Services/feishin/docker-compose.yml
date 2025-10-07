@@ -10,5 +10,5 @@ services:
       - SERVER_NAME=Navidrome
       - SERVER_LOCK=true
       - SERVER_TYPE=navidrome
-      - SERVER_URL=https://navidrome.lyall.lol
-      #- SERVER_URL=https://navidrome.ddns.lyall.lol
+      #- SERVER_URL=https://navidrome.lyall.lol
+      - SERVER_URL=https://navidrome.external.lyall.lol

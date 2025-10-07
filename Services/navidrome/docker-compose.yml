@@ -9,5 +9,7 @@ services:
     volumes:
       - ../../Volumes/navidrome/data:/data
       - /mnt/drive1/Media/Music:/music:ro
+      - /mnt/drive1/Media/Music 2:/music-2:ro
+      - /mnt/drive1/Media/Music 3:/music-3:ro
     environment:
       - ND_CONFIGFILE=/data/navidrome.toml

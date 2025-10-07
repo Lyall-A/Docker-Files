@@ -4,10 +4,11 @@ services:
     container_name: minecraft
     restart: unless-stopped
     network_mode: bridge
+    user: 1000:1000
     ports:
       - 25560-25570:25560-25570
     working_dir: /data
-    command: ./run.sh
+    command: bash ./run.sh
     stdin_open: true
     tty: true
     volumes:

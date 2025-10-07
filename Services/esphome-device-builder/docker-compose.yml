@@ -1,0 +1,8 @@
+services:
+  esphome-device-builder:
+    image: ghcr.io/esphome/esphome
+    container_name: esphome-device-builder
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ../../Volumes/esphome-device-builder/config:/config

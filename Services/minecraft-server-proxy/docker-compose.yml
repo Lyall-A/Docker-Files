@@ -1,0 +1,9 @@
+services:
+  minecraft-server-proxy:
+    image: alpine/socat
+    container_name: minecraft-server-proxy
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 25565:25565
+    command: TCP4-LISTEN:25565 TCP4:external.lyall.lol:25565
