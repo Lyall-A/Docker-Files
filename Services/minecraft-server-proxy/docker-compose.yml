@@ -6,4 +6,4 @@ services:
     network_mode: bridge
     ports:
       - 25565:25565
-    command: TCP4-LISTEN:25565,fork TCP4:external.lyall.lol:25565
+    command: -d -d TCP4-LISTEN:25565,reuseaddr,fork TCP4:external.lyall.lol:25565
