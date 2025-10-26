@@ -10,9 +10,4 @@ services:
       - ../../Volumes/http-proxy/config.json:/data/config.json
       - ../../Volumes/http-proxy/services:/data/services
       - ../../Volumes/http-proxy/pages:/data/pages
-      # - ../../Volumes/http-proxy/cert.pem:/data/cert.pem
-      # - ../../Volumes/http-proxy/privkey.pem:/data/privkey.pem
-      - ../../Volumes/certificate-renewer/config/live/lyall.lol/cert.pem:/data/cert.pem
-      - ../../Volumes/certificate-renewer/config/live/lyall.lol/privkey.pem:/data/privkey.pem
-      - ../../Volumes/certificate-renewer/config/live/lyall.lol/fullchain.pem:/data/fullchain.pem
-      - ../../Volumes/certificate-renewer/config/live/lyall.lol/chain.pem:/data/chain.pem
+      - ../../Volumes/certificate-renewer/config:/etc/letsencrypt
