@@ -1,0 +1,13 @@
+services:
+  seerr:
+    #image: fallenbagel/jellyseerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 5055:5055
+    volumes:
+      #- ../../Volumes/jellyseerr/config:/app/config
+      - ../../Volumes/seerr/config:/app/config

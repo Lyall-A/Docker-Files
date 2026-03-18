@@ -7,6 +7,7 @@ services:
     user: 1000:1000
     ports:
       - 25560-25570:25560-25570
+      - 19132:19132/udp
     working_dir: /data
     command: bash ./start.sh
     stdin_open: true

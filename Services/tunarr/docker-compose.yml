@@ -1,0 +1,10 @@
+services:
+  tunarr:
+    image: chrisbenincasa/tunarr:latest
+    container_name: tunarr
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 8491:8000
+    volumes:
+      - ../../Volumes/tunarr/config:/config

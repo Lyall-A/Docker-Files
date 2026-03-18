@@ -3,6 +3,8 @@ services:
     image: postgres:16
     container_name: zipline-database
     restart: unless-stopped
+    #ports:
+    #  - 6767:5432
     environment:
       POSTGRES_USER: zipline
       POSTGRES_PASSWORD: zipline1234
@@ -10,7 +12,8 @@ services:
     volumes:
       - ../../Volumes/zipline/db:/var/lib/postgresql/data
   zipline:
-    image: ghcr.io/diced/zipline:latest
+    image: ghcr.io/diced/zipline:trunk
+    #image: ghcr.io/diced/zipline:latest
     container_name: zipline
     restart: unless-stopped
     ports:
@@ -21,6 +24,7 @@ services:
       - ../../Volumes/zipline/.env
     environment:
       DATABASE_URL: postgres://zipline:zipline1234@zipline-database:5432/zipline
+      #DATABASE_URL: postgres://zipline:zipline1234@127.0.0.1:6767/zipline
     volumes:
       - ../../Volumes/zipline/uploads:/zipline/uploads
       - ../../Volumes/zipline/public:/zipline/public

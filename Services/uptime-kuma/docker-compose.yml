@@ -1,11 +1,16 @@
 services:
   uptime-kuma:
-    image: louislam/uptime-kuma:beta
+    image: louislam/uptime-kuma
+    #image: louislam/uptime-kuma:pr-test2
     container_name: uptime-kuma
     restart: unless-stopped
     network_mode: bridge
     ports:
+      #- 3000:3000
       - 3001:3001
+    #environment:
+    #  - UPTIME_KUMA_GH_REPO=peaktwilight:master
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../Volumes/uptime-kuma/data:/app/data
+      #- ../../Volumes/uptime-kuma-pr/data:/app/data

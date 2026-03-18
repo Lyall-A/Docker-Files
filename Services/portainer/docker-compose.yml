@@ -13,7 +13,7 @@ services:
       - ../../Volumes/portainer/data:/data
 
   portainer-agent:
-    image: portainer/agent:2.19.4
+    image: portainer/agent:latest
     container_name: portainer-agent
     restart: unless-stopped
     network_mode: bridge
