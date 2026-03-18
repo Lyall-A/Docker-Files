@@ -6,6 +6,7 @@ services:
     network_mode: bridge
     ports:
       - 8099:80
+    env_file:
+      - ../../Volumes/jellyfin-vue/.env
     environment:
-      - DEFAULT_SERVERS=https://media.external.lyall.lol
       - DISABLE_SERVER_SELECTION=1

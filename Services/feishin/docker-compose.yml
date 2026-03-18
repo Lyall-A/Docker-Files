@@ -6,11 +6,10 @@ services:
     network_mode: bridge
     ports:
       - 9180:9180
+    env_file:
+      - ../../Volumes/feishin/.env
     environment:
-      - SERVER_NAME=EVIL Spotify 😈
       - SERVER_LOCK=true
       - SERVER_TYPE=navidrome
-      #- SERVER_URL=https://navidrome.lyall.lol
-      - SERVER_URL=https://navidrome.external.lyall.lol
       - LEGACY_AUTHENTICATION=false
       - ANALYTICS_DISABLED=false
