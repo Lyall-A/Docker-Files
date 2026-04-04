@@ -24,6 +24,8 @@ services:
     depends_on:
       - audiomuse-ai-postgres
       - audiomuse-ai-redis
+    env_file:
+      - ../../Volumes/audiomuse-ai/.env
     environment:
       - SERVICE_TYPE=flask
       - MEDIASERVER_TYPE=navidrome 
@@ -40,6 +42,8 @@ services:
     depends_on:
       - audiomuse-ai-postgres
       - audiomuse-ai-redis
+    env_file:
+      - ../../Volumes/audiomuse-ai/.env
     environment:
       - SERVICE_TYPE=worker
       - MEDIASERVER_TYPE=navidrome
