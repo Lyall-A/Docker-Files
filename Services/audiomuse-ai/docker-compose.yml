@@ -14,9 +14,10 @@ services:
       - POSTGRES_PASSWORD=audiomuse123
       - POSTGRES_DB=audiomuse
     volumes:
-      - ../../Volumes/audiomuse-ai/postgres:/data
+      - ../../Volumes/audiomuse-ai/postgres:/var/lib/postgresql/data
   audiomuse-ai-flask:
-    image: ghcr.io/neptunehub/audiomuse-ai:latest
+    #image: ghcr.io/neptunehub/audiomuse-ai:latest
+    image: ghcr.io/neptunehub/audiomuse-ai:latest-nvidia
     container_name: audiomuse-ai-flask
     restart: unless-stopped
     ports:
@@ -35,8 +36,16 @@ services:
       - POSTGRES_PASSWORD=audiomuse123
       - POSTGRES_DB=audiomuse
       - REDIS_URL=redis://audiomuse-ai-redis:6379/0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   audiomuse-ai-worker:
-    image: ghcr.io/neptunehub/audiomuse-ai:latest
+    #image: ghcr.io/neptunehub/audiomuse-ai:latest
+    image: ghcr.io/neptunehub/audiomuse-ai:latest-nvidia
     container_name: audiomuse-ai-worker
     restart: unless-stopped
     depends_on:
@@ -53,3 +62,10 @@ services:
       - POSTGRES_PASSWORD=audiomuse123
       - POSTGRES_DB=audiomuse
       - REDIS_URL=redis://audiomuse-ai-redis:6379/0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
