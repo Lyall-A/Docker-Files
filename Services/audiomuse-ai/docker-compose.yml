@@ -1,0 +1,51 @@
+services:
+  audiomuse-ai-redis:
+    image: redis:7-alpine
+    container_name: audiomuse-ai-redis
+    restart: unless-stopped
+    volumes:
+      - ../../Volumes/audiomuse-ai/redis:/data
+  audiomuse-ai-postgres:
+    image: postgres:15-alpine
+    container_name: audiomuse-ai-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=audiomuse
+      - POSTGRES_PASSWORD=audiomuse123
+      - POSTGRES_DB=audiomuse
+    volumes:
+      - ../../Volumes/audiomuse-ai/postgres:/data
+  audiomuse-ai-flask:
+    image: ghcr.io/neptunehub/audiomuse-ai:latest
+    container_name: audiomuse-ai-flask
+    restart: unless-stopped
+    ports:
+      - 4544:8000
+    depends_on:
+      - audiomuse-ai-postgres
+      - audiomuse-ai-redis
+    environment:
+      - SERVICE_TYPE=flask
+      - MEDIASERVER_TYPE=navidrome 
+      - POSTGRES_HOST=audiomuse-ai-postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=audiomuse
+      - POSTGRES_PASSWORD=audiomuse123
+      - POSTGRES_DB=audiomuse
+      - REDIS_URL=redis://audiomuse-ai-redis:6379/0
+  audiomuse-ai-worker:
+    image: ghcr.io/neptunehub/audiomuse-ai:latest
+    container_name: audiomuse-ai-worker
+    restart: unless-stopped
+    depends_on:
+      - audiomuse-ai-postgres
+      - audiomuse-ai-redis
+    environment:
+      - SERVICE_TYPE=worker
+      - MEDIASERVER_TYPE=navidrome
+      - POSTGRES_HOST=audiomuse-ai-postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=audiomuse
+      - POSTGRES_PASSWORD=audiomuse123
+      - POSTGRES_DB=audiomuse
+      - REDIS_URL=redis://audiomuse-ai-redis:6379/0
