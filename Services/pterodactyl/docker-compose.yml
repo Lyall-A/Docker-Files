@@ -1,11 +1,11 @@
 services:
   pterodactyl-database:
-    image: mariadb:10.5
+    image: mariadb:11
     container_name: pterodactyl-database
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - ../../Volumes/pterodactyl-database/database:/var/lib/mysql
+      - ../../Volumes/pterodactyl/database:/var/lib/mysql
     environment:
       MYSQL_USER: pterodactyl
       MYSQL_PASSWORD: pterodactyl
@@ -23,13 +23,14 @@ services:
       - 5700:80
       - 5701:443
     volumes:
-      - ../../Volumes/pterodactyl-panel/var:/app/var
-      - ../../Volumes/pterodactyl-panel/nginx:/app/nginx/http.d
-      - ../../Volumes/pterodactyl-panel/certs:/app/letsencrypt
-      - ../../Volumes/pterodactyl-panel/logs:/app/storage/logs
+      - ../../Volumes/pterodactyl/panel/var:/app/var
+      - ../../Volumes/pterodactyl/panel/nginx:/app/nginx/http.d
+      - ../../Volumes/pterodactyl/panel/certs:/app/letsencrypt
+      - ../../Volumes/pterodactyl/panel/logs:/app/storage/logs
     environment:
       APP_ENV: production
       APP_ENVIRONMENT_ONLY: false
+      HASHIDS_LENGTH: 8
       CACHE_DRIVER: redis
       SESSION_DRIVER: redis
       QUEUE_DRIVER: redis
@@ -46,20 +47,22 @@ services:
     networks:
       - pterodactyl-wings
     ports:
-      - 5702:8080
-      - 5703:2022
+      - 5702:5702
+      - 5703:5703
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
-      - ../../Volumes/pterodactyl-wings/etc:/etc/pterodactyl
-      - ../../Volumes/pterodactyl-wings/lib:/var/lib/pterodactyl
-      - ../../Volumes/pterodactyl-wings/logs:/var/log/pterodactyl
-      - ../../Volumes/pterodactyl-wings/temp:/tmp/pterodactyl
-      - ../../Volumes/pterodactyl-wings/certs:/etc/ssl/certs
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - /run/wings:/run/wings
+      - /var/lib/pterodactyl:/var/lib/pterodactyl # wings sends this path to docker, so it will fail if custom paths are used
+      - /tmp/pterodactyl:/tmp/pterodactyl # wings sends this path to docker, so it will fail if custom paths are used
+      - ../../Volumes/pterodactyl/wings/etc:/etc/pterodactyl
+      - ../../Volumes/pterodactyl/wings/logs:/var/log/pterodactyl
+      - ../../Volumes/pterodactyl/wings/certs:/etc/ssl/certs
+    environment:
+      WINGS_USERNAME: pterodactyl
 networks:
   pterodactyl-wings:
-    name: pterodactyl-wings
-    driver: bridge
+    name: pterodactyl_nw # wings uses this name by default, if the network doesnt already exist it will attempt to create it using the subnet 172.18.0.0/16, which may already be taken, causing an error
     ipam:
       config:
-        - subnet: "172.21.0.0/16"
+        - subnet: 172.50.0.0/16
