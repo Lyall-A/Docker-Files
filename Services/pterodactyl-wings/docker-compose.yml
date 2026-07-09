@@ -1,0 +1,27 @@
+services:
+  pterodactyl-wings:
+    image: ghcr.io/pterodactyl/wings
+    container_name: pterodactyl-wings
+    restart: unless-stopped
+    networks:
+      - pterodactyl-wings
+    ports:
+      - 5702:5702
+      - 5703:5703
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - /run/wings:/run/wings
+      - /var/lib/pterodactyl:/var/lib/pterodactyl # wings sends this path to docker, so it will fail if custom paths are used
+      - /tmp/pterodactyl:/tmp/pterodactyl # wings sends this path to docker, so it will fail if custom paths are used
+      - ../../Volumes/pterodactyl/wings/etc:/etc/pterodactyl
+      - ../../Volumes/pterodactyl/wings/logs:/var/log/pterodactyl
+      - ../../Volumes/pterodactyl/wings/certs:/etc/ssl/certs
+    environment:
+      WINGS_USERNAME: pterodactyl
+networks:
+  pterodactyl-wings:
+    name: pterodactyl_nw # wings uses this name by default, if the network doesnt already exist it will attempt to create it using the subnet 172.18.0.0/16, which may already be taken, causing an error
+    ipam:
+      config:
+        - subnet: 172.50.0.0/16

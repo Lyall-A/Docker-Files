@@ -1,0 +1,42 @@
+services:
+  pterodactyl-database:
+    image: mariadb:11
+    container_name: pterodactyl-database
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ../../Volumes/pterodactyl/database:/var/lib/mysql
+    environment:
+      MYSQL_USER: pterodactyl
+      MYSQL_PASSWORD: pterodactyl
+      MYSQL_ROOT_PASSWORD: pterodactyl
+      MYSQL_DATABASE: pterodactyl
+  pterodactyl-cache:
+    image: redis:alpine
+    container_name: pterodactyl-cache
+    restart: unless-stopped
+  pterodactyl-panel:
+    image: ghcr.io/pterodactyl/panel
+    container_name: pterodactyl-panel
+    restart: unless-stopped
+    ports:
+      - 5700:80
+      - 5701:443
+    volumes:
+      - ../../Volumes/pterodactyl/panel/var:/app/var
+      - ../../Volumes/pterodactyl/panel/nginx:/app/nginx/http.d
+      - ../../Volumes/pterodactyl/panel/certs:/app/letsencrypt
+      - ../../Volumes/pterodactyl/panel/logs:/app/storage/logs
+    environment:
+      APP_ENV: production
+      APP_ENVIRONMENT_ONLY: false
+      HASHIDS_LENGTH: 8
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: pterodactyl-cache
+      DB_HOST: pterodactyl-database
+      DB_PORT: 3306
+      DB_DATABASE: pterodactyl
+      DB_USERNAME: pterodactyl
+      DB_PASSWORD: pterodactyl
